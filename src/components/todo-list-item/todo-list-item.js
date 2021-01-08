@@ -14,7 +14,7 @@ export default class TodoListItem extends Component {
 
     // V2: ещё можно так: ф-я создаётся на самом объекте (не на пртотипе), ф-я-стрелка сохраняет значение this
     onLabelClick = () => { //т.е. ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
-        this.setState(({done}) =>{//тригерит ререндеринг компонента
+        this.setState(({done}) => {//тригерит ререндеринг компонента
             return {
                 done: !done
             }
@@ -36,7 +36,7 @@ export default class TodoListItem extends Component {
 
     render() {
 
-        const {label} = this.props
+        const {label, onDeleted} = this.props
         const {done, important} = this.state
 
         let classNames = 'todo-list-item'
@@ -63,7 +63,8 @@ export default class TodoListItem extends Component {
             </button>
 
             <button type="button"
-                    className="btn btn-outline-danger btn-sm float-right">
+                    className="btn btn-outline-danger btn-sm float-right"
+                    onClick={onDeleted}>
                 <i className="fa fa-trash-o"/>
             </button>
         </span>
