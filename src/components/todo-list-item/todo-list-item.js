@@ -14,16 +14,19 @@ export default class TodoListItem extends Component {
 
     // V2: ещё можно так: ф-я создаётся на самом объекте (не на пртотипе), ф-я-стрелка сохраняет значение this
     onLabelClick = () => { //т.е. ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
-        this.setState({//тригерит ререндеринг компонента
-            done: true
-        })
-        alert(`Good job! Done ${this.props.label}`)
+        this.setState(({done}) =>{//тригерит ререндеринг компонента
+            return {
+                done: !done
+            }
+        });
     }
 
     onMarkImportant = () => {
-        this.setState({
-            important: true
-        })
+        this.setState(({important}) => { //с такой конструкцией state будет в финальномм сост-и и его можно будет изменять (привет, синхронность)
+            return {
+                important: !important //если state был бы полностью независим, то можно был бы сделать => important: true
+            }
+        });
     }
 
     state = { //P.S. устанавливать state таким образом можно только 1 раз
@@ -34,11 +37,11 @@ export default class TodoListItem extends Component {
     render() {
 
         const {label} = this.props
-        const { done , important} = this.state
+        const {done, important} = this.state
 
         let classNames = 'todo-list-item'
         if (done) {
-           classNames += ' done'
+            classNames += ' done'
         }
 
         if (important) {
