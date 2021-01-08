@@ -4,40 +4,58 @@ import './todo-list-item.css'
 
 export default class TodoListItem extends Component {
 
+    /* //V1: ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
     constructor() {
         super();
-
-        this.onLabelClick = () => { //т.е. ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
+        this.onLabelClick = () => {
             alert(`Good job! Done ${this.props.label}`)
         }
-    }
+    } */
 
-    /* ещё можно так: ф-я создаётся на самом объекте (не на пртотипе), ф-я-стрелка сохраняет значение this
+    // V2: ещё можно так: ф-я создаётся на самом объекте (не на пртотипе), ф-я-стрелка сохраняет значение this
     onLabelClick = () => { //т.е. ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
+        this.setState({//тригерит ререндеринг компонента
+            done: true
+        })
         alert(`Good job! Done ${this.props.label}`)
     }
-     */
+
+    onMarkImportant = () => {
+        this.setState({
+            important: true
+        })
+    }
+
+    state = { //P.S. устанавливать state таким образом можно только 1 раз
+        done: false,
+        important: false
+    }
 
     render() {
 
-        const {label, important = false} = this.props
+        const {label} = this.props
+        const { done , important} = this.state
 
-        const style = {
-            color: important ? "tomato" : "pink",
-            fontWeight: important ? 'bold' : 'normal'
-        };
+        let classNames = 'todo-list-item'
+        if (done) {
+           classNames += ' done'
+        }
+
+        if (important) {
+            classNames += ' important'
+        }
 
         return (
-            <span className="todo-list-item">
+            <span className={classNames}>
             <span
                 className="todo-list-item-label"
-                style={style}
                 onClick={this.onLabelClick}>
                 {label}
             </span>
 
             <button type="button"
-                    className="btn btn-outline-success btn-sm float-right">
+                    className="btn btn-outline-success btn-sm float-right"
+                    onClick={this.onMarkImportant}>
                 <i className="fa fa-exclamation"/>
             </button>
 
