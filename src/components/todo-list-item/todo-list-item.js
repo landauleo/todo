@@ -4,6 +4,20 @@ import './todo-list-item.css'
 
 export default class TodoListItem extends Component {
 
+    constructor() {
+        super();
+
+        this.onLabelClick = () => { //т.е. ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
+            alert(`Good job! Done ${this.props.label}`)
+        }
+    }
+
+    /* ещё можно так: ф-я создаётся на самом объекте (не на пртотипе), ф-я-стрелка сохраняет значение this
+    onLabelClick = () => { //т.е. ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
+        alert(`Good job! Done ${this.props.label}`)
+    }
+     */
+
     render() {
 
         const {label, important = false} = this.props
@@ -17,7 +31,8 @@ export default class TodoListItem extends Component {
             <span className="todo-list-item">
             <span
                 className="todo-list-item-label"
-                style={style}>
+                style={style}
+                onClick={this.onLabelClick}>
                 {label}
             </span>
 
