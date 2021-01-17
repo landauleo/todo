@@ -17,6 +17,9 @@ export default class ItemAddForm extends Component {
     onSubmit = (e) => {
         e.preventDefault();//отменяет дефолтную отправку данных на сервер и перезагрузку страницы
         this.props.onItemAdded(this.state.label);
+        this.setState({
+            label: ''
+        })
     }
 
     render() {
@@ -28,6 +31,7 @@ export default class ItemAddForm extends Component {
                        className="form-control"
                        onChange={this.onLabelChange} //получаем текущее значение инпута
                        placeholder="What needs to be done"
+                       value={this.state.label} //теперь элемент контролируемый (state компонента меняется, эоемент об этом узнает)
                 />
                 <button className="btn btn-outline-secondary">
                     Add item
