@@ -4,6 +4,7 @@ import './todo-list-item.css'
 
 export default class TodoListItem extends Component {
 
+    //deprecated
     /* //V1: ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
     constructor() {
         super();
@@ -12,6 +13,7 @@ export default class TodoListItem extends Component {
         }
     } */
 
+    //deprecated
     // V2: ещё можно так: ф-я создаётся на самом объекте (не на пртотипе), ф-я-стрелка сохраняет значение this
     onLabelClick = () => { //т.е. ф-я создаётся не на прототипе класса, а на самом объекте -> this будет не undefined
         this.setState(({done}) => {//тригерит ререндеринг компонента
@@ -21,6 +23,7 @@ export default class TodoListItem extends Component {
         });
     }
 
+    //deprecated
     onMarkImportant = () => {
         this.setState(({important}) => { //с такой конструкцией state будет в финальномм сост-и и его можно будет изменять (привет, синхронность)
             return {
